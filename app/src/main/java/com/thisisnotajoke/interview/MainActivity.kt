@@ -10,9 +10,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import com.thisisnotajoke.interview.repository.MobileInterviewRepository
+import com.thisisnotajoke.interview.repository.LunchMenuDataSource
 import com.thisisnotajoke.interview.ui.theme.InterviewTheme
-import com.thisisnotajoke.interview.view.PeopleList
+import com.thisisnotajoke.interview.view.MenuList
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -20,7 +20,7 @@ import javax.inject.Inject
 class MainActivity : ComponentActivity() {
 
     @Inject
-    lateinit var service: MobileInterviewRepository
+    lateinit var service: LunchMenuDataSource
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
             InterviewTheme {
                 Box(Modifier.safeDrawingPadding()) {
                     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                        PeopleList(
+                        MenuList(
                             modifier = Modifier.padding(innerPadding)
                         )
                     }

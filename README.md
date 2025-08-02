@@ -1,3 +1,9 @@
-# Android Image List Example
+I wrote this solution from scratch using my take-home interview template, I did not use their (super minimal) scaffolding.
 
-This is an example solution to a classic Android interview question. Something close to this (without the refresh) can probably be expected to take about 2 hours to build from scratch in Android Studio.
+The general gist of the original prompt was:
+
+We get catered lunch.
+Here's a text based menu for two weeks.
+Make an app that renders the menu.
+
+Yes, it was that generic. I used a hardcoded `suspend fun` with a delay to simulate a network call so that they could see I implemented a loading state.

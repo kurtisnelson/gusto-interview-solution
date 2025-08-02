@@ -13,21 +13,21 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.thisisnotajoke.interview.PeopleListViewModel
-import com.thisisnotajoke.interview.model.PeopleState
+import com.thisisnotajoke.interview.LunchMenuViewModel
+import com.thisisnotajoke.interview.model.MenuState
+import java.util.UUID
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PeopleList(
+fun MenuList(
     modifier: Modifier = Modifier,
-    viewModel: PeopleListViewModel = viewModel(),
+    viewModel: LunchMenuViewModel = viewModel(),
 ) {
-    val response by viewModel.people.collectAsStateWithLifecycle()
+    val response by viewModel.menu.collectAsStateWithLifecycle()
     var isRefreshing by remember { mutableStateOf(false) }
     val onRefresh: () -> Unit = {
         isRefreshing = true
@@ -37,23 +37,23 @@ fun PeopleList(
     }
     PullToRefreshBox(isRefreshing, onRefresh) {
         when (response) {
-            is PeopleState.Loading -> {
+            is MenuState.Loading -> {
                 CircularProgressIndicator(modifier = modifier)
             }
 
-            is PeopleState.Success -> {
-                val success = response as PeopleState.Success
+            is MenuState.Success -> {
+                val success = response as MenuState.Success
                 LazyColumn(
                     verticalArrangement = Arrangement.spacedBy(10.dp),
                 ) {
-                    items(items = success.people.value, key = { it.uuid }) {
-                        PersonRow(it, modifier = Modifier.animateItem())
+                    items(items = success.menu.value, key = { UUID.randomUUID() }) {
+                        MenuWeek(it, modifier = Modifier.animateItem())
                     }
                 }
             }
 
-            is PeopleState.Error -> {
-                val error = response as PeopleState.Error
+            is MenuState.Error -> {
+                val error = response as MenuState.Error
                 Text("Error: {${error.error}")
             }
         }
